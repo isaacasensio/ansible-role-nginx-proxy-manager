@@ -24,7 +24,6 @@ services:
   db:
     image: {{ npm_db_image }}
     restart: unless-stopped
-    user: {{ created_uid }}:{{ created_gid }}
     environment:
       MYSQL_ROOT_PASSWORD: {{ npm_db_root_password }}
       MYSQL_DATABASE: {{ npm_db_name }}
