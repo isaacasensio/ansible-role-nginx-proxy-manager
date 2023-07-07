@@ -1,0 +1,15 @@
+---
+npm_ui_image: "jc21/nginx-proxy-manager:latest"
+npm_db_image: "jc21/mariadb-aria:latest"
+npm_db_user: "nginx_proxy_manager"
+npm_db_password: "nginx_proxy_manager"
+npm_db_root_password: "r00t!"
+npm_db_name: "nginx_proxy_manager"
+npm_host_config_path: /etc/nginx_proxy_manager
+npm_host_data_path: /var/lib/nginx_proxy_manager/data
+npm_host_letsencrypt_path: /var/lib/nginx_proxy_manager/letsencrypt
+npm_host_db_path: /var/lib/nginx_proxy_manager/mysql/data
+npm_container_user: nginx_proxy_manager
+npm_ui_host_http_port: 80
+npm_ui_host_https_port: 443
+npm_ui_host_admin_port: 81

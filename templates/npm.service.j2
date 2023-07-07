@@ -1,0 +1,16 @@
+[Unit]
+Description=nginx-proxy-manager
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+User={{ npm_container_user }}
+Group=docker
+WorkingDirectory={{ npm_host_config_path }}
+ExecStartPre=/usr/local/bin/docker-compose -f {{ npm_host_config_path }}/docker-compose.yml down
+ExecStart=/usr/local/bin/docker-compose -f {{ npm_host_config_path }}/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -f {{ npm_host_config_path }}/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target

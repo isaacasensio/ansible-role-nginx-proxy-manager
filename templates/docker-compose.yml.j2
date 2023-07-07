@@ -1,0 +1,34 @@
+# {{ ansible_managed }}
+---
+version: '3.8'
+services:
+  app:
+    image: {{ npm_ui_image }}
+    restart: unless-stopped
+    ports:
+      - {{ npm_ui_host_http_port }}:80
+      - {{ npm_ui_host_https_port }}:443
+      - {{ npm_ui_host_admin_port }}:81
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER:  {{ npm_db_user }}
+      DB_MYSQL_PASSWORD: {{ npm_db_password }}
+      DB_MYSQL_NAME: {{ npm_db_name }}
+    volumes:
+      - {{ npm_host_data_path }}:/data
+      - {{ npm_host_letsencrypt_path }}:/etc/letsencrypt
+    depends_on:
+      - db
+
+  db:
+    image: {{ npm_db_image }}
+    restart: unless-stopped
+    user: {{ created_uid }}:{{ created_gid }}
+    environment:
+      MYSQL_ROOT_PASSWORD: {{ npm_db_root_password }}
+      MYSQL_DATABASE: {{ npm_db_name }}
+      MYSQL_USER: {{ npm_db_user }}
+      MYSQL_PASSWORD: {{ npm_db_password }}
+    volumes:
+      - {{ npm_host_db_path }}:/var/lib/mysql
