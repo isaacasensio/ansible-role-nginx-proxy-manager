@@ -20,6 +20,10 @@ services:
       - {{ npm_host_letsencrypt_path }}:/etc/letsencrypt
     depends_on:
       - db
+{% if npm_network_name is defined and npm_network_name != '' %}
+    networks:
+      - {{ npm_network_name }}
+{% endif %}
 
   db:
     image: {{ npm_db_image }}
@@ -31,3 +35,13 @@ services:
       MYSQL_PASSWORD: {{ npm_db_password }}
     volumes:
       - {{ npm_host_db_path }}:/var/lib/mysql
+{% if npm_network_name is defined and npm_network_name != '' %}
+    networks:
+      - {{ npm_network_name }}
+{% endif %}
+
+{% if npm_network_name is defined and npm_network_name != '' %}
+networks:
+  {{ npm_network_name }}:
+    external: true
+{% endif %}

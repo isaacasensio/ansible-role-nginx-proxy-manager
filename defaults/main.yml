@@ -13,3 +13,4 @@ npm_container_user: nginx_proxy_manager
 npm_ui_host_http_port: 80
 npm_ui_host_https_port: 443
 npm_ui_host_admin_port: 81
+npm_network_name: ""
